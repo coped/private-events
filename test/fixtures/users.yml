@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+example:
+  username: example_user
+  id: 1
+
+bob: 
+  username: bob
+  id: 2
