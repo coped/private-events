@@ -1,0 +1,12 @@
+<% provide(:page, "New Event") %>
+<h1>Events#new</h1>
+<p>Find me in app/views/events/new.html.erb</p>
+
+<h1>Create a new event</h1>
+
+<%= form_with(model: @event, local:true) do |f| %>
+    <%= f.label :event %>
+    <%= f.text_field :description %>
+
+    <%= f.submit :submit %>
+<% end %>

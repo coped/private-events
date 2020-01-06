@@ -3,3 +3,9 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 <h1>This is the profile for <%= @user.username %></h1>
+
+<ul>
+    <% @user.created_events.each do |event| %>
+        <li><%= event.description %></li>
+    <% end %>
+</ul>

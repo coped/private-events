@@ -1,0 +1,9 @@
+<% provide(:page, "All Events") %>
+<h1>Events#index</h1>
+<p>Find me in app/views/events/index.html.erb</p>
+
+<ul>
+    <% @events.each do |event| %>
+        <li><%= event.description %>, Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
+    <% end %>
+</ul>

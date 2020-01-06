@@ -5,6 +5,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get root_path
     assert_select "a[href=?]", login_path
     get new_user_path
+    # Valid signup
     assert_difference -> { User.count }, 1 do
       post users_path, params: { user: { username: "new_user" } }
     end
