@@ -6,4 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(username: "example_user")
+User.create!(username: "example_user")
+
+15.times do
+    User.create!(username: Faker::Internet.user_name)
+end
+
+User.all.each do |user|
+    5.times do
+        user.created_events.create!(description: Faker::Lorem.sentence)
+    end
+end

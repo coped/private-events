@@ -1,4 +1,4 @@
-<h1>Private Events</h1>
+<h1><%= link_to("Private Events", root_path) %></h1>
 <%= link_to("All events", events_path) %>
 <% if logged_in? %>
     <h1>Hello, <%= link_to("#{current_user.username}", user_path(current_user)) %>.</h1>

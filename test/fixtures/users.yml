@@ -4,6 +4,6 @@ example:
   username: example_user
   id: 1
 
-bob: 
-  username: bob
+joe: 
+  username: joe
   id: 2
