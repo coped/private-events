@@ -3,9 +3,15 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 <h1>This is the profile for <%= @user.username %></h1>
-
+<h1>Upcoming events:</h1>
 <ul>
-    <% @user.created_events.each do |event| %>
-        <li><%= event.description %></li>
+    <% @upcoming_events.each do |event| %>
+        <li><%= link_to(event.description, event_path(event)) %> On: <%= event.date %></li>
+    <% end %>
+</ul>
+<h1>Previous events:</h1>
+<ul>
+    <% @previous_events.each do |event| %>
+        <li><%= link_to(event.description, event_path(event)) %> On: <%= event.date %></li>
     <% end %>
 </ul>

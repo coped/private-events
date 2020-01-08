@@ -3,4 +3,13 @@
 <p>Find me in app/views/events/show.html.erb</p>
 
 <%= @event.description %>
+<%= @event.date %>
 <p>Created by: <%= link_to(@event.creator.username, user_path(@event.creator)) %></p>
+<h1>Attendees</h1>
+
+<ul>
+    <% @event.attendees.each do |attendee| %>
+        <li><%= link_to(attendee.username, user_path(attendee)) %></li>
+    <% end %>
+</ul>
+    

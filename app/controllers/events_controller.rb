@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.get_all_events
+    @upcoming_events = Event.upcoming
+    @previous_events = Event.previous
   end
 
   def new
@@ -25,6 +26,6 @@ class EventsController < ApplicationController
   private
 
     def event_params
-      params.require(:event).permit(:name, :description)
+      params.require(:event).permit(:description, :date)
     end
 end

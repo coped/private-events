@@ -3,7 +3,6 @@ require 'test_helper'
 class EventsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:example)
-    @event_description = "A description"
   end
 
   test "events interface" do
@@ -12,7 +11,7 @@ class EventsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", new_event_path
     get new_event_path
     assert_difference -> { Event.count }, 1 do
-      post events_path, params: { event: { description: @event_description } }
+      post events_path, params: { event: { date: Time.now, description: "A description" } }
     end
     event = Event.last
     assert_redirected_to event_path(event)
