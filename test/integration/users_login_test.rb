@@ -4,6 +4,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:example)
   end
+  
   test "user login and logout" do
     get root_path
     assert_select "a[href=?]", login_path

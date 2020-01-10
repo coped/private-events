@@ -3,6 +3,10 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 <h1>This is the profile for <%= @user.username %></h1>
+<h1>Invitations:</h1>
+<% @invitations.each do |invitation| %>
+    <li><%= link_to(invitation.invited_event.description, invitation_path(invitation)) %></li>
+<% end %>
 <h1>Upcoming events:</h1>
 <ul>
     <% @upcoming_events.each do |event| %>

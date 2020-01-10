@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_212957) do
+ActiveRecord::Schema.define(version: 2020_01_10_010009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "event_attendings", force: :cascade do |t|
-    t.integer "attended_event_id"
-    t.integer "event_attendee_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "events", force: :cascade do |t|
     t.datetime "date"
@@ -30,6 +23,14 @@ ActiveRecord::Schema.define(version: 2020_01_07_212957) do
     t.text "description"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.integer "invited_event_id"
+    t.integer "event_invitee_id"
+    t.boolean "attending"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.datetime "created_at", precision: 6, null: false
@@ -37,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_212957) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "event_attendings", "events", column: "attended_event_id"
-  add_foreign_key "event_attendings", "users", column: "event_attendee_id"
   add_foreign_key "events", "users", column: "creator_id"
+  add_foreign_key "invitations", "events", column: "invited_event_id"
+  add_foreign_key "invitations", "users", column: "event_invitee_id"
 end

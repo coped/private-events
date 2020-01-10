@@ -1,5 +1,5 @@
 <h1><%= link_to("Private Events", root_path) %></h1>
-<%= link_to("All events", events_path) %>
+<%= link_to("All events", events_path(name: "some name")) %>
 <% if logged_in? %>
     <h1>Hello, <%= link_to("#{current_user.username}", user_path(current_user)) %>.</h1>
     <%= link_to("Create new event", new_event_path) %>

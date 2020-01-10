@@ -4,3 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+
+<% (1..10).each do |n| %>
+user_<%= n %>_event:
+  description: Event by user_<%= n %>
+  date: <%= Time.now - 50 + rand(100) %>
+  creator: user_<%= n %>
+<% end %>

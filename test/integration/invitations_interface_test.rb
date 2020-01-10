@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EventAttendingTest < ActiveSupport::TestCase
+class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

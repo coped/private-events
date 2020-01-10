@@ -19,7 +19,7 @@ User.all.each do |user|
     5.times do
         event = user.created_events.create!(date: Faker::Time.between(2.months.ago, 2.months.from_now), description: Faker::Lorem.sentence)
         3.times do
-            EventAttending.create!(attended_event: event, event_attendee: users[rand(count)])
+            event.invitations.create!(event_invitee: users[rand(count)], attending: true)
         end
     end
 end

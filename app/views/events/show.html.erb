@@ -4,6 +4,14 @@
 
 <%= @event.description %>
 <%= @event.date %>
+
+<%= form_with(model: @invitation, url: invitations_path(event_id: params[:id]), local: true) do |f| %>
+    <%= f.label :username %>
+    <%= f.text_field :event_invitee %>
+
+    <%= f.submit :send_invitation %>
+<% end %>
+
 <p>Created by: <%= link_to(@event.creator.username, user_path(@event.creator)) %></p>
 <h1>Attendees</h1>
 
