@@ -5,9 +5,11 @@
 <%= @event.description %>
 <%= @event.date %>
 
-<%= form_with(model: @invitation, url: invitations_path(event_id: params[:id]), local: true) do |f| %>
+<%= form_with(model: @invitation, url: invitations_path, local: true) do |f| %>
     <%= f.label :username %>
-    <%= f.text_field :event_invitee %>
+    <%= f.collection_select(:event_invitee_id, @all_invitees, :id , :username, prompt: true) %>
+    
+    <%= f.hidden_field(:invited_event_id) %>
 
     <%= f.submit :send_invitation %>
 <% end %>

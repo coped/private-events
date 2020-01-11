@@ -17,7 +17,13 @@ class EventsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to event_path(event)
     follow_redirect!
     assert_template "events/show"
-    get events_path
     assert_match event.description, response.body
+    get events_path
+    Event.upcoming.each do |event|
+      assert_select "a[href=?]", event_path(event)
+    end
+    Event.previous.each do |event|
+      assert_select "a[href=?]", event_path(event)
+    end
   end
 end

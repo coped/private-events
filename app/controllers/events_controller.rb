@@ -21,6 +21,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find_by(id: params[:id])
+    @all_invitees = User.where.not('username = ?', @event.creator.username).order(username: :asc)
     @invitation = @event.invitations.build
   end
 

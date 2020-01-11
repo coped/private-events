@@ -6,7 +6,7 @@
     <em><%= link_to(@invitation.invited_event.description, event_path(@invitation.invited_event)) %></em> by
     <%= link_to(@invitation.invited_event.creator.username, user_path(@invitation.invited_event.creator)) %>.
 </p>
-<%= link_to("Accept invitation", invitation_path(@invitation, response: "1"), method: :patch) %>
-<%= link_to("Decline invitation", invitation_path(@invitation, response: "0"), method: :patch) %>
+<%= link_to("Accept invitation", invitation_path(@invitation, response: true), method: :patch) %>
+<%= link_to("Decline invitation", invitation_path(@invitation, response: false), method: :patch) %>
 <%= link_to("Delete invitation", invitation_path(@invitation), method: :delete, 
             data: { confirm: "Are you sure you want to delete this invitation?" }) %>

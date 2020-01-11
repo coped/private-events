@@ -1,13 +1,12 @@
 class InvitationsController < ApplicationController
   def create
-    @event = Event.find_by(id: params[:event_id])
-    @invitation = @event.invitations.build(invite_params[:invitation])
+    @invitation = Invitation.new(invite_params)
     if @invitation.save
       flash[:success] = "Invitation sent."
-      redirect_to event_path(@event)
+      redirect_to event_path(@invitation.invited_event)
     else
-      flash.now[:warning] = "An error occurred. Please try again."
-      redirect_to event_path(@event)
+      flash[:warning] = "An error occurred. Please try again."
+      redirect_to event_path(@invitation.invited_event)
     end
   end
 
@@ -17,7 +16,7 @@ class InvitationsController < ApplicationController
 
   def update
     @invitation = Invitation.find_by(id: params[:id])
-    if response_params == "1"
+    if response_params == "true"
       @invitation.accept
       flash[:info] = "You're now attending this event!"
       redirect_to invitation_path(@invitation)
@@ -38,7 +37,7 @@ class InvitationsController < ApplicationController
   private
 
     def invite_params
-      params.require(:invitation).permit(:event_invitee, :attending)
+      params.require(:invitation).permit(:event_invitee_id, :invited_event_id)
     end
 
     def response_params

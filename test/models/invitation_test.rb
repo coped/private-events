@@ -19,7 +19,7 @@ class InvitationTest < ActiveSupport::TestCase
   test "declining invite should not add them to event" do
     invitation = @event.invitations.create!(event_invitee: @user)
     assert_nil invitation.attending
-    assert_no_difference -> { @event.attendees.count }, 1 do
+    assert_no_difference -> { @event.attendees.count } do
       invitation.decline
     end
     assert_not invitation.attending

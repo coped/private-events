@@ -1,5 +1,5 @@
-<ul>
+<ul id="flash">
     <% flash.each do |type, message| %>
-        <li><%= message %></li>
+        <li class="<%= type %>"><%= message %></li>
     <% end %>
 </ul>
