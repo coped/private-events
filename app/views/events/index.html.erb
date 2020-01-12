@@ -5,12 +5,12 @@
 <h1>Upcoming events:</h1>
 <ul>
     <% @upcoming_events.each do |event| %>
-        <li><%= link_to(event.description, event_path(event)) %>On: <%= event.date %> Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
+        <li><%= link_to(event.name, event_path(event)) %>On: <%= event.date %> Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
     <% end %>
 </ul>
 <h1>Previous events:</h1>
 <ul>
     <% @previous_events.each do |event| %>
-        <li><%= link_to(event.description, event_path(event)) %> On: <%= event.date %> Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
+        <li><%= link_to(event.name, event_path(event)) %> On: <%= event.date %> Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
     <% end %>
 </ul>

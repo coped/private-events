@@ -3,7 +3,10 @@ require 'test_helper'
 class EventsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:example)
-    @event = @user.created_events.create!(description: "An event")
+    @event = @user.created_events.create!(name: "foobar",
+                                          description: "foobar",
+                                          date: Time.now,
+                                          location: "foobar")
   end
 
   test "should get new" do

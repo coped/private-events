@@ -3,9 +3,15 @@ require 'test_helper'
 class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:example)
-    @user_event = @user.created_events.create!(description: "foobar", date: Time.now + 100)
+    @user_event = @user.created_events.create!(name:        "foobar",
+                                               description: "foobar",
+                                               date:        Time.now + 100,
+                                               location:    "foobar")
     @different_user = users(:user_1)
-    @different_user_event = @different_user.created_events.create!(description: "foobar", date: Time.now + 100)
+    @different_user_event = @different_user.created_events.create!(name:        "foobar",
+                                                                   description: "foobar",
+                                                                   date:        Time.now + 100,
+                                                                   location:    "foobar")
   end
   
   test "invitations interface" do
@@ -18,16 +24,20 @@ class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to event_path(@user_event)
     follow_redirect!
-    # Successfully send an invitation
+    assert_not flash.empty?
+    # Successfully sending an invitation
     assert_difference -> { @user_event.invitations.count }, 1 do
       post invitations_path, params: { invitation: { event_invitee_id: @different_user.id, invited_event_id: @user_event.id } }
     end
     assert_redirected_to event_path(@user_event)
     follow_redirect!
-    # Have an invitation sent to user
+    assert_not flash.empty?
+    # Recieving an invitation
     assert_difference -> { @user.invitations.count }, 1 do
       @invitation = @different_user_event.invitations.create!(event_invitee: @user)
     end
+    @invitation.reload
+    assert_nil @invitation.attending
     get user_path(@user)
     assert_select "a[href=?]", invitation_path(@invitation)
     get invitation_path(@invitation)
@@ -40,6 +50,8 @@ class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
     assert_difference -> { @different_user_event.attendees.count }, 1 do
       patch invitation_path(@invitation), params: { response: true }
     end
+    @invitation.reload
+    assert @invitation.attending
     assert_redirected_to invitation_path(@invitation)
     follow_redirect!
     assert_not flash.empty?
@@ -48,6 +60,8 @@ class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
     assert_difference -> { @different_user_event.attendees.count }, -1 do
       patch invitation_path(@invitation), params: { response: false }
     end
+    @invitation.reload
+    assert_not @invitation.attending
     assert_redirected_to invitation_path(@invitation)
     follow_redirect!
     assert_not flash.empty?

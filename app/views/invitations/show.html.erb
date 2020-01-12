@@ -1,11 +1,15 @@
+<% provide(:page, "Invitation for " + @invitation.invited_event.name) %>
 <h1>Invitations#show</h1>
 <p>Find me in app/views/invitations/show.html.erb</p>
 
 <p>
     <%= @invitation.event_invitee.username %>, you've been invited to 
-    <em><%= link_to(@invitation.invited_event.description, event_path(@invitation.invited_event)) %></em> by
+    <em><%= link_to(@invitation.invited_event.name, event_path(@invitation.invited_event)) %></em> By:
     <%= link_to(@invitation.invited_event.creator.username, user_path(@invitation.invited_event.creator)) %>.
 </p>
+<h1>When: <%= @invitation.invited_event.date %></h1>
+<h1>Where: <%= @invitation.invited_event.location %></h1>
+<h1>Description: <%= @invitation.invited_event.description %></h1>
 <%= link_to("Accept invitation", invitation_path(@invitation, response: true), method: :patch) %>
 <%= link_to("Decline invitation", invitation_path(@invitation, response: false), method: :patch) %>
 <%= link_to("Delete invitation", invitation_path(@invitation), method: :delete, 

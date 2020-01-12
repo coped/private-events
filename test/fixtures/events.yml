@@ -7,7 +7,9 @@
 
 <% (1..10).each do |n| %>
 user_<%= n %>_event:
+  name: foobar
   description: Event by user_<%= n %>
   date: <%= Time.now - 50 + rand(100) %>
+  location: foobar
   creator: user_<%= n %>
 <% end %>

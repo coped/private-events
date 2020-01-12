@@ -12,14 +12,16 @@ User.create!(username: "example_user")
     User.create!(username: Faker::Internet.user_name)
 end
 
-users = User.all
-count = User.count
-
 User.all.each do |user|
+    all_others = User.where.not('id = ?', user.id)
     5.times do
-        event = user.created_events.create!(date: Faker::Time.between(2.months.ago, 2.months.from_now), description: Faker::Lorem.sentence)
-        3.times do
-            event.invitations.create!(event_invitee: users[rand(count)], attending: true)
+        event = user.created_events.create!(name: Faker::Lorem.sentence,
+                                            description: Faker::Lorem.paragraph,
+                                            location: Faker::Address.full_address,
+                                            date: Faker::Time.between(1.year.ago, 1.year.from_now))
+        while event.attendees.size < 3 do
+            other_user = all_others.order('RANDOM()').first
+            event.invitations.create!(event_invitee: other_user, attending: true) if !event.attendees.include?(other_user)
         end
     end
 end

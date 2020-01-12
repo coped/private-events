@@ -11,7 +11,10 @@ class EventsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", new_event_path
     get new_event_path
     assert_difference -> { Event.count }, 1 do
-      post events_path, params: { event: { date: Time.now, description: "A description" } }
+      post events_path, params: { event: { name: "foobar",
+                                           description: "A description",
+                                           date: Time.now,
+                                           location: "foobar" } }
     end
     event = Event.last
     assert_redirected_to event_path(event)

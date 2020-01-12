@@ -5,17 +5,17 @@
 <h1>This is the profile for <%= @user.username %></h1>
 <h1>Invitations:</h1>
 <% @invitations.each do |invitation| %>
-    <li><%= link_to(invitation.invited_event.description, invitation_path(invitation)) %></li>
+    <li><%= link_to(invitation.invited_event.name, invitation_path(invitation)) %></li>
 <% end %>
 <h1>Upcoming events:</h1>
 <ul>
     <% @upcoming_events.each do |event| %>
-        <li><%= link_to(event.description, event_path(event)) %> On: <%= event.date %></li>
+        <li><%= link_to(event.name, event_path(event)) %> On: <%= event.date %></li>
     <% end %>
 </ul>
 <h1>Previous events:</h1>
 <ul>
     <% @previous_events.each do |event| %>
-        <li><%= link_to(event.description, event_path(event)) %> On: <%= event.date %></li>
+        <li><%= link_to(event.name, event_path(event)) %> On: <%= event.date %></li>
     <% end %>
 </ul>

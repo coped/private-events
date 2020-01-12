@@ -5,11 +5,17 @@
 <h1>Create a new event</h1>
 
 <%= form_with(model: @event, local:true) do |f| %>
-    <%= f.label :event %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :description %>
     <%= f.text_field :description %>
 
     <%= f.label :date %>
     <%= f.datetime_select :date %>
+
+    <%= f.label :location %>
+    <%= f.text_field :location %>
 
     <%= f.submit :submit %>
 <% end %>
