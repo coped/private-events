@@ -1,0 +1,42 @@
+<p class="subtitle is-size-3 has-text-centered"><%= link_to(@event.name, event_path(@event)) %></p>
+<p class="paragraph"><%= @event.description %></p>
+<p class="subtitle is-size-5">
+    When: <strong><%= @event.date %></strong> 
+    <span class="has-text-grey">
+        (<%= event_date_in_words(@event) %>)
+    </span>
+</p>
+<p class="subtitle is-size-5">Where: <strong><%= @event.location %></strong></p>
+<p class="subtitle is-size-5">Created by: <strong><%= link_to(@event.creator.username, user_path(@event.creator)) %></strong></p>
+
+
+<% if @event.creator == current_user %>
+    <div class="box">
+        <p class="subtitle is-size-5">Invite a user</p>
+        <%= form_with(model: @invitation, url: invitations_path, local: true) do |f| %>
+            <div class="field">
+                <%= f.label :find_by_username, class: "label" %>
+                <div class="select">
+                    <%= f.collection_select(:event_invitee_id, @all_invitees, :id , :username, prompt: true, class: "control") %>
+                </div>
+            </div>
+            
+            <%= f.hidden_field(:invited_event_id) %>
+
+            <%= f.submit :send_invitation, class: "button is-link" %>
+        <% end %>
+    </div>
+<% end %>
+
+<hr>
+<p class="subtitle is-size-5">Attendees:</p>
+<ul>
+    <% @event.attendees.each do |attendee| %>
+        <li>
+            <%= link_to(attendee.username, user_path(attendee)) %> 
+            <% if logged_in? and attendee == current_user %>
+                <span class="has-text-grey">(you)</span>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

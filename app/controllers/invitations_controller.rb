@@ -12,6 +12,7 @@ class InvitationsController < ApplicationController
 
   def show
     @invitation = Invitation.find_by(id: params[:id])
+    @event = @invitation.invited_event
   end
 
   def update
@@ -22,7 +23,7 @@ class InvitationsController < ApplicationController
       redirect_to invitation_path(@invitation)
     else
       @invitation.decline
-      flash[:info] = "You've declined this event (you can still change your mind later)."
+      flash[:info] = "You've declined this event. (you can still change your mind later)"
       redirect_to invitation_path(@invitation)
     end
   end

@@ -11,8 +11,13 @@
 
   <body>
     <%= render "layouts/navbar" %>
-    <%= render "layouts/flash" %>
-    <%= yield %>
+    <section class="section">
+      <div class="container">
+        <%= render "layouts/flash" %>
+        <%= yield %>
+      </div>
+    </section>
+    <%= render "layouts/footer" %>
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

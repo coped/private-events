@@ -8,20 +8,25 @@
 
 User.create!(username: "example_user")
 
-15.times do
+25.times do
     User.create!(username: Faker::Internet.user_name)
 end
 
 User.all.each do |user|
     all_others = User.where.not('id = ?', user.id)
     5.times do
+        date = Faker::Time.between(1.year.ago, 1.year.from_now)
         event = user.created_events.create!(name: Faker::Lorem.sentence,
-                                            description: Faker::Lorem.paragraph,
+                                            description: Faker::Lorem.paragraph(20),
                                             location: Faker::Address.full_address,
-                                            date: Faker::Time.between(1.year.ago, 1.year.from_now))
-        while event.attendees.size < 3 do
-            other_user = all_others.order('RANDOM()').first
-            event.invitations.create!(event_invitee: other_user, attending: true) if !event.attendees.include?(other_user)
+                                            date: date)
+        puts "=====#{event.name}====="
+        all_others.each do |other_user|
+            random_created_at = (date > Time.now ? Faker::Time.between(2.months.ago, Time.now) : Faker::Time.between(date - 5.months, date))
+            random_attending = [true, false, nil].sample
+            event.invitations.create!(event_invitee: other_user,
+                                      attending: random_attending,
+                                      created_at: random_created_at)
         end
     end
 end

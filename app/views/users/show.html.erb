@@ -1,21 +1,52 @@
 <% provide(:page, @user.username) %>
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
-<h1>This is the profile for <%= @user.username %></h1>
-<h1>Invitations:</h1>
-<% @invitations.each do |invitation| %>
-    <li><%= link_to(invitation.invited_event.name, invitation_path(invitation)) %></li>
-<% end %>
-<h1>Upcoming events:</h1>
-<ul>
-    <% @upcoming_events.each do |event| %>
-        <li><%= link_to(event.name, event_path(event)) %> On: <%= event.date %></li>
-    <% end %>
-</ul>
-<h1>Previous events:</h1>
-<ul>
-    <% @previous_events.each do |event| %>
-        <li><%= link_to(event.name, event_path(event)) %> On: <%= event.date %></li>
-    <% end %>
-</ul>
+<h1 class="is-size-3"><%= @user.username %>'s profile</h1>
+<hr>
+<div class="columns">
+    <div class="column is-<%= (is_current_user? ? "6" : "12") %>">
+        <p class="is-size-5 subtitle"><%= is_current_user? ? "Your upcoming events:" : "Upcoming events:" %></p>
+        <div class="box">
+            <% @upcoming_events.each do |event| %>
+                <li class="list-item">
+                    <p><%= link_to(event.name, event_path(event)) %></p>
+                    <p><%= event.date %> <span class="has-text-grey">(<%= event_date_in_words(event) %>)</span></p>
+                </li>
+            <% end %>
+        </div>
+        <p class="is-size-5 subtitle"><%= is_current_user? ? "Your previous events:" : "Previous events:" %></p>
+        <div class="box">
+            <ul>
+                <% @previous_events.each do |event| %>
+                    <li class="list-item">
+                        <p><%= link_to(event.name, event_path(event)) %></p>
+                        <p><%= event.date %> <span class="has-text-grey">(<%= event_date_in_words(event) %>)</span></p>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+    <div class="column is-6">
+        <% if is_current_user? %>
+            <p class="is-size-5 subtitle">Current invitations:</p>
+            <div class="box">
+                <ul>
+                    <% @invitations.each do |invitation| %>
+                        <li class="list-item">
+                            <p><%= link_to(invitation.invited_event.name, invitation_path(invitation)) %></p>
+                            <p>Recieved <%= time_ago_in_words(invitation.created_at) %> ago</p>
+                            <p class="has-text-grey"><em>
+                                <% if invitation.attending %>
+                                    Attending
+                                <% elsif invitation.attending.nil? %>
+                                    Response pending
+                                <% else %>
+                                    Declined
+                                <% end %>
+                            </em></p>
+                        </li>
+                    <% end %>
+                </ul>
+            <%= will_paginate(@invitations) %>
+            </div>
+        <% end %>
+    </div>
+</div>

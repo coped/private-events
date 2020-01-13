@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @upcoming_events = @user.upcoming_events
     @previous_events = @user.previous_events
-    @invitations = @user.invitations
+    @invitations = @user.invitations.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
   end
 
   private 

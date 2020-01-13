@@ -1,12 +1,13 @@
 <% provide(:page, "Log in") %>
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1 class="is-size-3">Log in</h1>
+<hr>
+<div class="column is-6">
+    <%= form_with(scope: :login, local: true, url: login_path, method: :post) do |f| %>
+        <div class="field">
+            <%= f.label :username, class: "label" %>
+            <%= f.text_field :username, class: "control input"%>
+        </div>
 
-<h1>Enter username to log in</h1>
-
-<%= form_with(scope: :login, local: true, url: login_path, method: :post) do |f| %>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-
-    <%= f.submit :submit %>
-<% end %>
+        <%= f.submit :submit, class: "button is-link" %>
+    <% end %>
+</div>

@@ -1,25 +1,9 @@
 <% provide(:page, @event.name) %>
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
-<h1>Event: <%= @event.name %></h1>
-<h1>When: <%= @event.date %></h1>
-<h1>Where: <%= @event.location %></h1>
-<h1>Description: <%= @event.description %></h1>
-<%= form_with(model: @invitation, url: invitations_path, local: true) do |f| %>
-    <%= f.label :username %>
-    <%= f.collection_select(:event_invitee_id, @all_invitees, :id , :username, prompt: true) %>
-    
-    <%= f.hidden_field(:invited_event_id) %>
-
-    <%= f.submit :send_invitation %>
-<% end %>
-
-<p>Created by: <%= link_to(@event.creator.username, user_path(@event.creator)) %></p>
-<h1>Attendees</h1>
-
-<ul>
-    <% @event.attendees.each do |attendee| %>
-        <li><%= link_to(attendee.username, user_path(attendee)) %></li>
-    <% end %>
-</ul>
+<h1 class="is-size-3">Event</h1>
+<hr>
+<div class="columns center">
+    <div class="column is-8">
+        <%= render 'shared/event' %>
+    </div>
+</div>
     

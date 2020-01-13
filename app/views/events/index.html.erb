@@ -1,16 +1,33 @@
 <% provide(:page, "All Events") %>
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
-
-<h1>Upcoming events:</h1>
-<ul>
-    <% @upcoming_events.each do |event| %>
-        <li><%= link_to(event.name, event_path(event)) %>On: <%= event.date %> Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
-    <% end %>
-</ul>
-<h1>Previous events:</h1>
-<ul>
-    <% @previous_events.each do |event| %>
-        <li><%= link_to(event.name, event_path(event)) %> On: <%= event.date %> Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></li>
-    <% end %>
-</ul>
+<h1 class="is-size-3">All events</h1>
+<hr>
+<div class="column">
+    <%= will_paginate(@upcoming_events) %>
+</div>
+<p class="is-size-5 subtitle">Upcoming events</p>
+<div class="box">
+    <ul>
+        <% @upcoming_events.each do |event| %>
+            <li class="list-item">
+                <p><%= link_to(event.name, event_path(event)) %></p>
+                <p>On: <%= event.date %> <span class="has-text-grey">(<%= event_date_in_words(event) %>)</span></p>
+                <p>Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></p>
+            </li>
+        <% end %>
+    </ul>
+</div>
+<p class="is-size-5 subtitle">Previous events</p>
+<div class="box">
+    <ul>
+        <% @previous_events.each do |event| %>
+            <li class="list-item">
+                <p><%= link_to(event.name, event_path(event)) %></p>
+                <p>On: <%= event.date %> <span class="has-text-grey">(<%= event_date_in_words(event) %>)</span></p>
+                <p>Created by: <%= link_to(event.creator.username, user_path(event.creator)) %></p>
+            </li>
+        <% end %>
+    </ul>
+</div>
+<div class="column">
+    <%= will_paginate(@upcoming_events) %>
+</div>

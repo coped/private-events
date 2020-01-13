@@ -9,6 +9,10 @@ module SessionsHelper
         end
     end
 
+    def is_current_user?
+        params[:id].to_i == current_user.id if current_user
+    end
+
     def logged_in?
         !current_user.nil?
     end

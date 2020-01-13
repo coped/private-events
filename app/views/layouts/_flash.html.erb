@@ -1,5 +1,5 @@
-<ul id="flash">
+<div class="container has-text-centered">
     <% flash.each do |type, message| %>
-        <li class="<%= type %>"><%= message %></li>
+        <span id="flash" class="tag is-medium is-<%= type %>"><%= message %></span>
     <% end %>
-</ul>
+</div>

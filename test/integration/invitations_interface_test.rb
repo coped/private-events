@@ -55,7 +55,7 @@ class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to invitation_path(@invitation)
     follow_redirect!
     assert_not flash.empty?
-    assert_select "li.info"
+    assert_select "span.is-info"
     # Changing your mind and declining the invitation
     assert_difference -> { @different_user_event.attendees.count }, -1 do
       patch invitation_path(@invitation), params: { response: false }
@@ -65,7 +65,7 @@ class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to invitation_path(@invitation)
     follow_redirect!
     assert_not flash.empty?
-    assert_select "li.info"
+    assert_select "span.is-info"
     # Deleting the invitation
     assert_difference -> { @user.invitations.count }, -1 do
       delete invitation_path(@invitation)

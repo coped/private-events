@@ -1,21 +1,31 @@
 <% provide(:page, "New Event") %>
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
 
-<h1>Create a new event</h1>
+<h1 class="is-size-3">Create a new event</h1>
+<hr>
+<div class="columns">
+    <div class="column is-6">
+        <%= form_with(model: @event, local:true) do |f| %>
+            <div class="field">
+                <%= f.label :name, class: "label" %>
+                <%= f.text_field :name, class: "control input" %>
+            </div>
+            
+            <div class="field">
+                <%= f.label :description, class: "label" %>
+                <%= f.text_area :description, class: "control textarea", rows: "10" %>
+            </div>
 
-<%= form_with(model: @event, local:true) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+            <div class="field">
+                <%= f.label :date, class: "label" %>
+                <%= f.datetime_select :date, class: "control"%>
+            </div>
+            
+            <div class="field">
+                <%= f.label :location, class: "label" %>
+                <%= f.text_field :location, class: "control input" %>
+            </div>
 
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-
-    <%= f.label :date %>
-    <%= f.datetime_select :date %>
-
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-
-    <%= f.submit :submit %>
-<% end %>
+            <%= f.submit :submit, class: "control button is-link"%>
+        <% end %>
+    </div>
+</div>
