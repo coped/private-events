@@ -43,6 +43,8 @@ class InvitationsInterfaceTest < ActionDispatch::IntegrationTest
     get invitation_path(@invitation)
     assert_select "a[href=?]", event_path(@invitation.invited_event)
     assert_select "a[href=?]", user_path(@invitation.invited_event.creator)
+    assert_match @invitation.invited_event.name, response.body
+    assert_match @invitation.invited_event.description, response.body
     assert_match "Accept invitation", response.body
     assert_match "Decline invitation", response.body
     assert_match "Delete invitation", response.body

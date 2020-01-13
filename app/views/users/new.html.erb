@@ -1,10 +1,13 @@
 <% provide(:page, "Sign Up") %>
-<h1>Users#new</h1>
-<h2>Sign up</h2>
+<h1 class="is-size-3">Sign Up</h1>
+<hr>
+<div class="column is-6">
+    <%= form_with(model: @user, local: true) do |f| %>
+        <div class="field">
+            <%= f.label :create_username, class: "label" %>
+            <%= f.text_field :username, class: "control input" %>
+        </div>
 
-<%= form_with(model: @user, local: true) do |f| %>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-
-    <%= f.submit :submit %>
-<% end %>
+        <%= f.submit :submit, class: "button is-link" %>
+    <% end %>
+</div>

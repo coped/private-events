@@ -5,6 +5,16 @@ class InvitationTest < ActiveSupport::TestCase
     @user = users(:example)
     @event = events(:user_1_event)
   end
+
+  test "should not accept empty invited_event_id" do
+    invitation = @user.invitations.build(event_invitee: @user, invited_event: nil)
+    assert_not invitation.valid?
+  end
+
+  test "should not accept empty event_invitee_id" do
+    invitation = @event.invitations.build(event_invitee: nil)
+    assert_not @event.valid?
+  end
   
   test "accepting invite should add them to attended event" do
     invitation = @event.invitations.create!(event_invitee: @user)

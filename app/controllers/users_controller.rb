@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :redirect_if_logged_in, only: [:new]
+  
   def new
     @user = User.new
   end
@@ -22,7 +24,11 @@ class UsersController < ApplicationController
     @invitations = @user.invitations.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
   end
 
-  private 
+  private
+
+    def redirect_if_logged_in
+      redirect_to user_path(current_user) if logged_in?
+    end
 
     def user_params
       params.require(:user).permit(:username)

@@ -2,6 +2,9 @@ class User < ApplicationRecord
     has_many :created_events, foreign_key: :creator_id, class_name: "Event"
     has_many :invitations, foreign_key: :event_invitee_id
     has_many :invited_events, through: :invitations
+    validates :username, presence: true,
+                         uniqueness: { case_sensitive: false },
+                         length: { maximum: 255 }
 
     def upcoming_events
         self.created_events.where('date >= ?', Time.now).order(date: :asc)

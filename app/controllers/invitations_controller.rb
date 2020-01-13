@@ -1,4 +1,6 @@
 class InvitationsController < ApplicationController
+  before_action :get_invitation, only: [:show, :update, :destroy]
+  
   def create
     @invitation = Invitation.new(invite_params)
     if @invitation.save
@@ -11,12 +13,10 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    @invitation = Invitation.find_by(id: params[:id])
     @event = @invitation.invited_event
   end
 
   def update
-    @invitation = Invitation.find_by(id: params[:id])
     if response_params == "true"
       @invitation.accept
       flash[:info] = "You're now attending this event!"
@@ -29,13 +29,15 @@ class InvitationsController < ApplicationController
   end
 
   def destroy
-    @invitation = Invitation.find_by(id: params[:id])
     @invitation.destroy
     flash[:info] = "Invitation deleted."
     redirect_to user_path(current_user)
   end
 
   private
+    def get_invitation
+      @invitation = Invitation.find_by(id: params[:id])
+    end
 
     def invite_params
       params.require(:invitation).permit(:event_invitee_id, :invited_event_id)
