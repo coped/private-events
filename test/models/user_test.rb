@@ -65,7 +65,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should return true if user is invited to event" do
-    @upcoming_event.invitations.create(event_invitee: @another_user)
+    @upcoming_event.invitations.create!(event_invitee: @another_user)
     assert @another_user.invited?(@upcoming_event)
   end
 

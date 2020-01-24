@@ -1,7 +1,7 @@
 <% provide(:page, "All Events") %>
 <h1 class="is-size-3">All events</h1>
 <hr>
-<div class="column">
+<div class="paragraph digg_pagination">
     <%= will_paginate(@upcoming_events) %>
 </div>
 <p class="is-size-5 subtitle">Upcoming events</p>
@@ -28,6 +28,6 @@
         <% end %>
     </ul>
 </div>
-<div class="column">
+<div class="digg_pagination">
     <%= will_paginate(@upcoming_events) %>
 </div>

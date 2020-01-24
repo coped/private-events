@@ -16,6 +16,6 @@ class User < ApplicationRecord
 
     def invited?(event)
         Invitation.where('invited_event_id = :event_id AND event_invitee_id = :user_id', 
-                        { event_id: event.id, user_id: self.id }).any?
+                        { event_id: event.id, user_id: self.id }).present?
     end
 end
